@@ -27,7 +27,7 @@ cd mig_prog_zadaci/graph_algorithms
 mkdir build
 cd build
 cmake ..
-make
+cmake --build .
 ```
 
 ## Maximum Flow Algorithms
