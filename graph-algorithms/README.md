@@ -14,7 +14,7 @@ Two representations of graphs are provided:
 ## Table of Contents
 
 - [Installation](#installation)
-- [Maximum Flow Algorithms](#algorithms)
+- [Maximum Flow Algorithms](#maximum-flow-algorithms)
 
 
 ## Installation
