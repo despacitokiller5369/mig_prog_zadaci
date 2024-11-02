@@ -18,9 +18,6 @@ public:
 	const char& operator[](unsigned int index) const;
 	friend ostream& operator<<(ostream &o, const String &other);
 
-	const int getLength() const;
-	void setLength(int length);
-
 	void computeLPSArray(const String &subStr, int lps[]);
 
 	// Implement KMP on the whole string
