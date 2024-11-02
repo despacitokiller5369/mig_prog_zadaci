@@ -8,13 +8,13 @@ GraphAdjList::GraphAdjList(int V) {
     this->V = V;
     adj.resize(V);
     capacity.resize(V, vector<int>(V, 0));
-};
+}
 
 void GraphAdjList::addEdge(int u, int v, int capacity) {
     adj[u].push_back(v);
     adj[v].push_back(u);
     this->capacity[u][v] = capacity;
-};
+}
 
 bool GraphAdjList::bfs(int s, int t, vector<int>& parent) {
     vector<bool> visited(V, false);
@@ -36,7 +36,7 @@ bool GraphAdjList::bfs(int s, int t, vector<int>& parent) {
         }
     }
     return visited[t];
-};
+}
 
 int GraphAdjList::dfs(int u, int t, int flow, vector<int>& parent) {
     if (u == t) return flow;
@@ -54,7 +54,7 @@ int GraphAdjList::dfs(int u, int t, int flow, vector<int>& parent) {
         }
     }
     return 0;
-};
+}
 
 int GraphAdjList::solveFordFulkerson(int s, int t) {
     vector<int> parent(V);
@@ -75,7 +75,7 @@ int GraphAdjList::solveFordFulkerson(int s, int t) {
         max_flow += path_flow;
     }
     return max_flow;
-};
+}
 
 int GraphAdjList::solveEdmondsKarp(int s, int t) {
     vector<int> parent(V);
@@ -96,7 +96,7 @@ int GraphAdjList::solveEdmondsKarp(int s, int t) {
         max_flow += path_flow;
     }
     return max_flow;
-};
+}
 
 int GraphAdjList::solveDinic(int s, int t) {
     vector<int> level(V), parent(V);
@@ -111,7 +111,7 @@ int GraphAdjList::solveDinic(int s, int t) {
         }
     }
     return max_flow;
-};
+}
 
 void GraphAdjList::minCut(int s, int t) {
     vector<bool> visited(V, false);
@@ -138,9 +138,7 @@ void GraphAdjList::minCut(int s, int t) {
             }
         }
     }
-};
-
-
+}
 
 GraphAdjMatrix::GraphAdjMatrix(int V) {
     this->V = V;
@@ -171,7 +169,7 @@ bool GraphAdjMatrix::bfs(int s, int t, vector<int>& parent) {
         }
     }
     return visited[t];
-};
+}
 
 int GraphAdjMatrix::dfs(int u, int t, int flow, vector<int>& parent) {
     if (u == t) return flow;
@@ -188,7 +186,7 @@ int GraphAdjMatrix::dfs(int u, int t, int flow, vector<int>& parent) {
         }
     }
     return 0;
-};
+}
 
 int GraphAdjMatrix::solveDinic(int s, int t) {
     vector<int> parent(V), level(V);
@@ -203,7 +201,7 @@ int GraphAdjMatrix::solveDinic(int s, int t) {
         }
     }
     return max_flow;
-};
+}
 
 int GraphAdjMatrix::solveFordFulkerson(int s, int t) {
     vector<int> parent(V);
@@ -224,7 +222,7 @@ int GraphAdjMatrix::solveFordFulkerson(int s, int t) {
         max_flow += path_flow;
     }
     return max_flow;
-};
+}
 
 int GraphAdjMatrix::solveEdmondsKarp(int s, int t) {
     vector<int> parent(V);
@@ -245,7 +243,7 @@ int GraphAdjMatrix::solveEdmondsKarp(int s, int t) {
         max_flow += path_flow;
     }
     return max_flow;
-};
+}
 
 void GraphAdjMatrix::minCut(int s, int t) {
     vector<bool> visited(V, false);
@@ -272,4 +270,4 @@ void GraphAdjMatrix::minCut(int s, int t) {
             }
         }
     }
-};
+}
