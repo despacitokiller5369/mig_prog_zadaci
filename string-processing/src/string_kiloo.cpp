@@ -83,14 +83,6 @@ ostream& operator<<(ostream &o, const String &other) {
 	return o;
 }
 
-const int String::getLength() const {
-	return length;
-}
-
-void String::setLength(int length) {
-	this->length = length;
-}
-
 void String::computeLPSArray(const String &subStr, int lps[]) {
     int len = 0;
     lps[0] = 0;
