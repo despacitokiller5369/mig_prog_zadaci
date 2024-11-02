@@ -16,7 +16,6 @@ public:
     virtual int solveEdmondsKarp(int s, int t) = 0;
     virtual int solveDinic(int s, int t) = 0;
     virtual void minCut(int s, int t) = 0;
-    virtual int solvePushRelabel(int s, int t) = 0;
 };
 
 class GraphAdjList : public Graph {
