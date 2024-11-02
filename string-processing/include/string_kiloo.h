@@ -21,8 +21,7 @@ public:
 	const int getLength() const;
 	void setLength(int length);
 
-	void computeLPSArray(const String &subStr, int arr[]);
-	void computeLSPArrayReverse(const String &subStr, int arr[]);
+	void computeLPSArray(const String &subStr, int lps[]);
 
 	// Implement KMP on the whole string
 	int* findAllSubStr(const String &subStr);

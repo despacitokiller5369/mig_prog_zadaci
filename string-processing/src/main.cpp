@@ -8,7 +8,7 @@ int main() {
     String s = "Hello World! World World";
     cout << s << endl;
 
-    cout << "First occurence of World: " <<s.findFirstSubStr("World") << endl;
+    cout << "First occurence of World: " << s.findFirstSubStr("World") << endl;
     cout << "Last occurence of World: " << s.findLastSubStr("World") << endl;
     
     cout << "All occurences of World:" << endl;
