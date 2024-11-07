@@ -19,6 +19,7 @@ public:
 	friend ostream& operator<<(ostream &o, const String &other);
 
 	void computeLPSArray(const String &subStr, int lps[]);
+	void computeLPSArrayReverse(const String &subStr, int lps[]);
 
 	// Implement KMP on the whole string
 	int* findAllSubStr(const String &subStr);
@@ -30,5 +31,5 @@ public:
 	// The lookup table should be done from last character
 	int findLastSubStr(const String &subStr);
 
-	int* findAllSubStrReverse(const char *subStr);
+	int* findAllSubStrReverse(const String &subStr);
 };

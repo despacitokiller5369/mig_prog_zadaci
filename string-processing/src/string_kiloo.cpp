@@ -97,6 +97,20 @@ void String::computeLPSArray(const String &subStr, int lps[]) {
     }
 }
 
+void String::computeLPSArrayReverse(const String &subStr, int lps[]) {
+    int len = subStr.length - 1;
+    lps[len] = 0;
+    for (int i = len - 1; i >= 0; i--) {
+        while (len > 0 && subStr[i] != subStr[len]) {
+            len = lps[len - 1];
+        }
+        if (subStr[i] == subStr[len]) {
+            len++;
+        }
+        lps[i] = len;
+    }
+}
+
 int* String::findAllSubStr(const String &subStr) {
     int *res = new int[length];
     int *lps = new int[subStr.length];
@@ -171,53 +185,31 @@ int String::findLastSubStr(const String &subStr) {
     return last_index;
 }
 
-int* String::findAllSubStrReverse(const char *subStr) {
-	String reversedString(this->chars);
-	String reversedSubStr(subStr);
+int* String::findAllSubStrReverse(const String &subStr) {
+    int *res = new int[length];
+    int *lps = new int[subStr.length];
+    int count = 0;
+    computeLPSArrayReverse(subStr, lps);
 
-	int left = 0;
-	int right = length - 1;
+    int j = subStr.length - 1;
+    for (int i = length - 1; i >= 0; i--) {
+        while (j > 0 && chars[i] != subStr[j]) {
+            j = lps[j - 1];
+        }
+        if (chars[i] == subStr[j]) {
+            j--;
+        }
+        if (j == -1) {
+            res[count++] = i + 1;
+            j = lps[j + 1];
+        }
+    }
 
-	while (left < right) {
-		swap(reversedString[left], reversedString[right]);
-		left++;
-		right--;
-	}
-
-	left = 0;
-	right = reversedSubStr.length - 1;
-	while (left < right) {
-		swap(reversedSubStr[left], reversedSubStr[right]);
-		left++;
-		right--;
-	}
-
-	int *lps = new int[reversedSubStr.length];
-	computeLPSArray(reversedSubStr, lps);
-
-	int i = 0;
-	int j = 0;
-	int count = 0;
-	
-	int *res = new int[length];
-	for (int i = 0; i < length; i++) {
-		while (j > 0 && reversedString[i] != reversedSubStr[j]) {
-			j = lps[j - 1];
-		}
-		if (reversedString[i] == reversedSubStr[j]) {
-			j++;
-		}
-		if (j == reversedSubStr.length) {
-			res[count++] = i - j + 1;
-			j = lps[j - 1];
-		}
-	}
-
-	int *final_res = new int[count];
-	for (int i = 0; i < count; i++) {
-		final_res[i] = res[i];
-	}
-	delete[] res;
-	delete[] lps;
-	return final_res;
+    int *final_res = new int[count];
+    for (int i = 0; i < count; i++) {
+        final_res[i] = res[i];
+    }
+    delete[] res;
+    delete[] lps;
+    return final_res;
 }
