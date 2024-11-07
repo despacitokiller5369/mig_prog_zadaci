@@ -62,6 +62,42 @@ String String::operator=(const String &other) {
     return *this;
 }
 
+String String::operator+(const char *other) {
+    int len = 0;
+    while (other[len] != '\0') {
+        len++;
+    }
+
+    int new_len = length + len;
+    char *new_chars = new char[new_len + 1];
+    for (unsigned int i = 0; i < length; i++) {
+        new_chars[i] = chars[i];
+    }
+    for (unsigned int i = 0; i < len; i++) {
+        new_chars[length + i] = other[i];
+    }
+    new_chars[new_len] = '\0';
+
+    String new_str(new_chars);
+    delete[] new_chars;
+    return new_str;
+}
+
+String String::operator+(const String &other) {
+    char *new_chars = new char[length + other.length + 1];
+    for (unsigned int i = 0; i < length; i++) {
+        new_chars[i] = chars[i];
+    }
+    for (unsigned int i = 0; i < other.length; i++) {
+        new_chars[length + i] = other.chars[i];
+    }
+    new_chars[length + other.length] = '\0';
+
+    String new_str(new_chars);
+    delete[] new_chars;
+    return new_str;
+}
+
 char& String::operator[](unsigned int index) {
 	if (index < 0 || index >= length) {
 		throw out_of_range("Index out of range!");
@@ -98,13 +134,14 @@ void String::computeLPSArray(const String &subStr, int lps[]) {
 }
 
 void String::computeLPSArrayReverse(const String &subStr, int lps[]) {
-    int len = subStr.length - 1;
-    lps[len] = 0;
-    for (int i = len - 1; i >= 0; i--) {
-        while (len > 0 && subStr[i] != subStr[len]) {
-            len = lps[len - 1];
+    int n = subStr.length;
+    int len = 0;
+    lps[n - 1] = 0;
+    for (int i = n - 2; i >= 0; i--) {
+        while (len > 0 && subStr[i] != subStr[n - len - 1]) {
+            len = lps[n - len];
         }
-        if (subStr[i] == subStr[len]) {
+        if (subStr[i] == subStr[n - len - 1]) {
             len++;
         }
         lps[i] = len;
@@ -164,31 +201,6 @@ int String::findFirstSubStr(const String &subStr) {
 
 int String::findLastSubStr(const String &subStr) {
     int *lps = new int[subStr.length];
-    computeLPSArray(subStr, lps);
-
-    int j = 0;
-    int last_index = -1;
-    for (int i = 0; i < length; i++) {
-        while (j > 0 && chars[i] != subStr[j]) {
-            j = lps[j - 1];
-        }
-        if (chars[i] == subStr[j]) {
-            j++;
-        }
-        if (j == subStr.length) {
-            last_index = i - j + 1;
-            j = lps[j - 1];
-        }
-    }
-
-    delete[] lps;
-    return last_index;
-}
-
-int* String::findAllSubStrReverse(const String &subStr) {
-    int *res = new int[length];
-    int *lps = new int[subStr.length];
-    int count = 0;
     computeLPSArrayReverse(subStr, lps);
 
     int j = subStr.length - 1;
@@ -200,8 +212,32 @@ int* String::findAllSubStrReverse(const String &subStr) {
             j--;
         }
         if (j == -1) {
-            res[count++] = i + 1;
-            j = lps[j + 1];
+            delete[] lps;
+            return i;
+        }
+    }
+
+    delete[] lps;
+    return -1;
+}
+
+int* String::findAllSubStrReverse(const String &subStr) {
+    int *res = new int[length];
+    int *lps = new int[subStr.length];
+    int count = 0;
+    computeLPSArrayReverse(subStr, lps);
+
+    int j = subStr.length - 1;
+    for (int i = length - 1; i >= 0; i--) {
+        while (j < subStr.length - 1 && chars[i] != subStr[j]) {
+            j = subStr.length - lps[j + 1] - 1;
+        }
+        if (chars[i] == subStr[j]) {
+            j--;
+        }
+        if (j == -1) {
+            res[count++] = i;
+            j = subStr.length - lps[0] - 1;
         }
     }
 

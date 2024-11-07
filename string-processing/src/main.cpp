@@ -19,7 +19,7 @@ int main() {
     }
 
     cout << "All occurences of World in reverse:" << endl;
-    int *res_rev = s.findAllSubStr("World");
+    int *res_rev = s.findAllSubStrReverse("World");
     int n_rev = sizeof(res_rev) / sizeof(res_rev[0]);
     for (int i = 0; i <= n_rev; i++) {
         cout << res_rev[i] << endl;
