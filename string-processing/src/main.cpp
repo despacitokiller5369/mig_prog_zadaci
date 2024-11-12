@@ -25,5 +25,19 @@ int main() {
         cout << res_rev[i] << endl;
     }
 
+    cout << "All occurences of World with Rabin-Karp (sum):" << endl;
+    int *res_rk_sum = s.rabinKarpSum("World");
+    int n_rk_sum = sizeof(res_rk_sum) / sizeof(res_rk_sum[0]);
+    for (int i = 0; i <= n_rk_sum; i++) {
+        cout << res_rk_sum[i] << endl;
+    }
+
+    cout << "All occurences of World with Rabin-Karp (pow):" << endl;
+    int *res_rk_pow = s.rabinKarpPow("World");
+    int n_rk_pow = sizeof(res_rk_pow) / sizeof(res_rk_pow[0]);
+    for (int i = 0; i <= n_rk_pow; i++) {
+        cout << res_rk_pow[i] << endl;
+    }
+
     return 0;
 }

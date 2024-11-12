@@ -24,15 +24,11 @@ public:
 	void computeLPSArray(const String &subStr, int lps[]);
 	void computeLPSArrayReverse(const String &subStr, int lps[]);
 
-	// Implement KMP on the whole string
 	int* findAllSubStr(const String &subStr);
-
-	// Implement KMP until the first match
 	int findFirstSubStr(const String &subStr);
-
-	// Implement KMP in reverse (search from the end of both strings).
-	// The lookup table should be done from last character
 	int findLastSubStr(const String &subStr);
-
 	int* findAllSubStrReverse(const String &subStr);
+
+	int* rabinKarpSum(const String &subStr);
+	int* rabinKarpPow(const String &subStr); 
 };

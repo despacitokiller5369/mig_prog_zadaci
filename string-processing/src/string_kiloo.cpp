@@ -249,3 +249,79 @@ int* String::findAllSubStrReverse(const String &subStr) {
     delete[] lps;
     return final_res;
 }
+
+int* String::rabinKarpSum(const String &subStr) {
+    int* res = new int[length];
+    int count = 0;
+
+    int pattern_hash = 0, text_hash = 0;
+
+    for (int i = 0; i < subStr.length; ++i) {
+        pattern_hash += (subStr[i] - 'a' + 1);
+        text_hash += (chars[i] - 'a' + 1);
+    }
+
+    for (int i = 0; i <= length - subStr.length; ++i) {
+        if (pattern_hash == text_hash) {
+            int j = 0;
+            for (; j < subStr.length; ++j) {
+                if (chars[i + j] != subStr[j]) break;
+            }
+            if (j == subStr.length) {
+                res[count++] = i;
+            }
+        }
+
+        if (i < length - subStr.length) {
+            text_hash -= (chars[i] - 'a' + 1);
+            text_hash += (chars[i + subStr.length] - 'a' + 1);
+        }
+    }
+
+    int* final_res = new int[count];
+    for (int i = 0; i < count; ++i) {
+        final_res[i] = res[i];
+    }
+    delete[] res;
+    return final_res;
+}
+
+int* String::rabinKarpPow(const String &subStr) {
+    const int base = 26;
+    int* res = new int[length];
+    int count = 0;
+
+    long long pattern_hash = 0, text_hash = 0, base_power = 1;
+
+    for (int i = 0; i < subStr.length - 1; ++i) {
+        base_power *= base;
+    }
+
+    for (int i = 0; i < subStr.length; ++i) {
+        pattern_hash = pattern_hash * base + (subStr[i] - 'a' + 1);
+        text_hash = text_hash * base + (chars[i] - 'a' + 1);
+    }
+
+    for (int i = 0; i <= length - subStr.length; ++i) {
+        if (pattern_hash == text_hash) {
+            int j = 0;
+            for (; j < subStr.length; ++j) {
+                if (chars[i + j] != subStr[j]) break;
+            }
+            if (j == subStr.length) {
+                res[count++] = i;
+            }
+        }
+
+        if (i < length - subStr.length) {
+            text_hash = (text_hash - (chars[i] - 'a' + 1) * base_power) * base + (chars[i + subStr.length] - 'a' + 1);
+        }
+    }
+
+    int* final_res = new int[count];
+    for (int i = 0; i < count; ++i) {
+        final_res[i] = res[i];
+    }
+    delete[] res;
+    return final_res;
+}
