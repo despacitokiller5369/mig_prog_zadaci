@@ -1,43 +1,62 @@
 #include <iostream>
+#include <chrono>
 
 #include "string_kiloo.h"
 
 using namespace std;
+using namespace chrono;
 
-int main() {
-    String s = "Hello World! World World";
-    cout << s << endl;
-
-    cout << "First occurence of World: " << s.findFirstSubStr("World") << endl;
-    cout << "Last occurence of World: " << s.findLastSubStr("World") << endl;
-    
-    cout << "All occurences of World:" << endl;
-    int *res = s.findAllSubStr("World");
+void printResults(int *res) {
     int n = sizeof(res) / sizeof(res[0]);
     for (int i = 0; i <= n; i++) {
         cout << res[i] << endl;
     }
+}
 
-    cout << "All occurences of World in reverse:" << endl;
-    int *res_rev = s.findAllSubStrReverse("World");
-    int n_rev = sizeof(res_rev) / sizeof(res_rev[0]);
-    for (int i = 0; i <= n_rev; i++) {
-        cout << res_rev[i] << endl;
-    }
+template <typename Func>
+void measureAndPrint(const string& funcName, Func func) {
+    auto start = high_resolution_clock::now();
+    func();
+    auto end = high_resolution_clock::now();
+    cout << funcName << " took " << duration<double, milli>(end - start).count() << " ms\n";
+    cout << endl;
+}
 
-    cout << "All occurences of World with Rabin-Karp (sum):" << endl;
-    int *res_rk_sum = s.rabinKarpSum("World");
-    int n_rk_sum = sizeof(res_rk_sum) / sizeof(res_rk_sum[0]);
-    for (int i = 0; i <= n_rk_sum; i++) {
-        cout << res_rk_sum[i] << endl;
-    }
+int main() {
+    String s = "Hello World! World World";
+    cout << s << "\n" << endl;
 
-    cout << "All occurences of World with Rabin-Karp (pow):" << endl;
-    int *res_rk_pow = s.rabinKarpPow("World");
-    int n_rk_pow = sizeof(res_rk_pow) / sizeof(res_rk_pow[0]);
-    for (int i = 0; i <= n_rk_pow; i++) {
-        cout << res_rk_pow[i] << endl;
-    }
+    measureAndPrint("findFirstSubStr", [&]() {
+        cout << "First occurrence of World: " << s.findFirstSubStr("World") << endl;
+    });
+
+    measureAndPrint("findLastSubStr", [&]() {
+        cout << "Last occurrence of World: " << s.findLastSubStr("World") << endl;
+    });
+
+    measureAndPrint("findAllSubStr", [&]() {
+        cout << "All occurrences of World:" << endl;
+        int *res = s.findAllSubStr("World");
+        printResults(res);
+    });
+
+    measureAndPrint("findAllSubStrReverse", [&]() {
+        cout << "All occurrences of World in reverse:" << endl;
+        int *res_rev = s.findAllSubStrReverse("World");
+        printResults(res_rev);
+    });
+
+    measureAndPrint("rabinKarpSum", [&]() {
+        cout << "All occurrences of World with Rabin-Karp (sum):" << endl;
+        int *res_rk_sum = s.rabinKarpSum("World");
+        printResults(res_rk_sum);
+    });
+
+    measureAndPrint("rabinKarpPow", [&]() {
+        cout << "All occurrences of World with Rabin-Karp (pow):" << endl;
+        int *res_rk_pow = s.rabinKarpPow("World");
+        printResults(res_rk_pow);
+    });
 
     return 0;
 }
