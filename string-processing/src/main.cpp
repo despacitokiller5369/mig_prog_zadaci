@@ -3,6 +3,7 @@
 
 #include "string_kiloo.h"
 #include "trie_kiloo.h"
+#include "patricia_kiloo.h"
 
 using namespace std;
 using namespace chrono;
@@ -71,6 +72,8 @@ int main() {
         bool found = patriciaTrie.search("HelloWorld");
         cout << "Found: " << found << endl;
     });
+
+
 
     return 0;
 }

@@ -14,6 +14,7 @@ set(SOURCES
     src/main.cpp
     src/string_kiloo.cpp
     src/trie_kiloo.cpp
+    src/patricia_kiloo.cpp
 )
 
 add_executable(string_processing ${SOURCES})
