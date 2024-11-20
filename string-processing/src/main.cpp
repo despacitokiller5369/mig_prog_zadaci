@@ -2,6 +2,7 @@
 #include <chrono>
 
 #include "string_kiloo.h"
+#include "trie_kiloo.h"
 
 using namespace std;
 using namespace chrono;
@@ -56,6 +57,19 @@ int main() {
         cout << "All occurrences of World with Rabin-Karp (pow):" << endl;
         int *res_rk_pow = s.rabinKarpPow("World");
         printResults(res_rk_pow);
+    });
+
+    PatriciaTrie patriciaTrie;
+
+    patriciaTrie.insert("Hello");
+    patriciaTrie.insert("World");
+    patriciaTrie.insert("Worlds");
+    patriciaTrie.insert("HelloWorld");
+
+    measureAndPrint("print", [&]() {
+        patriciaTrie.print();
+        bool found = patriciaTrie.search("HelloWorld");
+        cout << "Found: " << found << endl;
     });
 
     return 0;

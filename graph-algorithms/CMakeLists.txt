@@ -10,8 +10,6 @@ include_directories(include)
 set(SOURCES
     src/main.cpp
     src/graph.cpp
-
-    include/graph.h
 )
 
 add_executable(graph_algorithms ${SOURCES})
