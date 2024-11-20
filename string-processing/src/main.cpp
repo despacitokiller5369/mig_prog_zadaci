@@ -1,5 +1,6 @@
 #include <iostream>
 #include <chrono>
+#include <Windows.h>
 
 #include "string_kiloo.h"
 #include "trie_kiloo.h"
@@ -73,7 +74,22 @@ int main() {
         cout << "Found: " << found << endl;
     });
 
+    SetConsoleOutputCP(CP_UTF8);
 
+    Trie trie;
+
+    trie.insert(L"Hello");
+    trie.insert(L"World");
+    trie.insert(L"Worlds");
+    trie.insert(L"HelloWorld");
+
+    loadWordsFromTxt("..\\src\\all.txt", trie);
+
+    measureAndPrint("print", [&]() {
+        trie.print();
+        bool found = trie.search(L"аграр");
+        cout << "Found: " << found << endl;
+    });
 
     return 0;
 }

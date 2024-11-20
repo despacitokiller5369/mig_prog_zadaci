@@ -85,14 +85,20 @@ void Trie::preorder(TrieNode* node, wstring& word, vector<wstring>& res) {
     }
 }
 
+string toUTF8(const wstring& wstr) {
+    wstring_convert<codecvt_utf8<wchar_t>, wchar_t> converter;
+    return converter.to_bytes(wstr);
+}
+
 void Trie::print() {
     vector<wstring> words;
     wstring word;
 
     preorder(root, word, words);
 
-    for (wstring w : words) {
-        wcout << w << endl;
+    for (const auto& w : words) {
+        string utf8 = toUTF8(w);
+        cout << utf8 << endl;
     }
 }
 
