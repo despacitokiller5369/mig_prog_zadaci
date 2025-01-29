@@ -10,6 +10,7 @@ include_directories(include)
 set(SOURCES
     src/main.cpp
     src/sieve.cpp
+    src/large_int.cpp
 )
 
 add_executable(math_algorithms ${SOURCES})
