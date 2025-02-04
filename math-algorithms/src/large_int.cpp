@@ -212,3 +212,22 @@ LargeInt LargeInt::LCM(const LargeInt& a, const LargeInt& b) const {
 
     return abs(a * b) / GCD(a, b);
 }
+
+vector<pair<LargeInt, int>> LargeInt::prime_factors() const {
+    vector<pair<LargeInt, int>> result;
+    LargeInt n = abs(*this);
+    for (LargeInt i("2"); i * i <= n; i = i + LargeInt("1")) {
+        int count = 0;
+        while (n % i == LargeInt("0")) {
+            n = n / i;
+            ++count;
+        }
+        if (count > 0) {
+            result.push_back({i, count});
+        }
+    }
+    if (n > LargeInt("1")) {
+        result.push_back({n, 1});
+    }
+    return result;
+}

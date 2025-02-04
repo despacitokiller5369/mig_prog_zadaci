@@ -26,4 +26,5 @@ public:
     bool operator<=(const LargeInt& other) const;
     bool operator>=(const LargeInt& other) const;
     friend ostream& operator<<(ostream &o, const LargeInt &n);
+    vector<pair<LargeInt, int>> prime_factors() const;
 };

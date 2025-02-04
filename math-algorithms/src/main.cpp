@@ -16,7 +16,18 @@ int main() {
     LargeInt b("10000");
 
     cout << a + b << endl;
+    cout << a - b << endl;
+    cout << a * b << endl;
+    cout << a / b << endl;
+    cout << a % b << endl;
     cout << a.LCM(a, b) << endl;
+    cout << a.GCD(a, b) << endl;
+    
+    vector<pair<LargeInt, int>> factors = a.prime_factors();
+    for (auto f : factors) {
+        cout << f.first << "^" << f.second << " ";
+    }
+
 
     return 0;
 }
