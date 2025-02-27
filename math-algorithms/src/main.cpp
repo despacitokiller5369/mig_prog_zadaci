@@ -2,6 +2,7 @@
 
 #include "sieve.h"
 #include "large_int.h"
+#include "vector_kiloo.h"
 
 using namespace std;
 
@@ -27,7 +28,21 @@ int main() {
     for (auto f : factors) {
         cout << f.first << "^" << f.second << " ";
     }
+    cout << endl;
 
+    Vector v1(0, 3, -6);
+    Vector v2(2, 4, -2);
+    Vector v3(-1, -7, 2);
+    Vector v4(-21, 16, -27);
+
+    cout << "Sum of " << v1 << " and " << v2 << " = " << v1 + v2 << endl;
+    cout << "Difference of " << v2 << " and " << v1 << " = " << v2 - v1 << endl;
+    cout << "Product of " << v1 << " and 2 = " << v1 * 2 << endl;
+    cout << "Division of " << v2 << " by 2 = " << v2 / 2 << endl;
+    cout << "Dot product of " << v1 << " and " << v2 << " = " << v1.dot(v2) << endl;
+
+    Vector res = Vector::gaussian_elimination(v1, v2, v3, v4);
+    cout << "Result: x = " << res.x << ", y = " << res.y << ", z = " << res.z << endl;
 
     return 0;
 }
