@@ -12,6 +12,7 @@ set(SOURCES
     src/sieve.cpp
     src/large_int.cpp
     src/vector_kiloo.cpp
+    src/matrix.cpp
 )
 
 add_executable(math_algorithms ${SOURCES})
