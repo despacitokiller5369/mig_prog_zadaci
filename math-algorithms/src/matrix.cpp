@@ -70,6 +70,16 @@ Matrix Matrix::operator/(float scalar) const {
     return result;
 }
 
+Point Matrix::operator*(const Point& p) const {
+    Point result;
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            result.e[i] += data[i][j] * p.e[j];
+        }
+    }
+    return result;
+}
+
 ostream& operator<<(ostream& o, const Matrix& m) {
     for (int i = 0; i < m.rows; i++) {
         for (int j = 0; j < m.cols; j++) {
@@ -78,6 +88,43 @@ ostream& operator<<(ostream& o, const Matrix& m) {
         o << endl;
     }
     return o;
+}
+
+Matrix Matrix::scale(float x, float y, float z) {
+    Matrix result = Matrix::identity(4);
+    result.data[0][3] = x;
+    result.data[1][3] = y;
+    result.data[2][3] = z;
+    return result;
+}
+
+Matrix Matrix::translate(float x, float y, float z) {
+    Matrix result = Matrix::identity(4);
+    result.data[0][3] = x;
+    result.data[1][3] = y;
+    result.data[2][3] = z;
+    result.data[3][3] = 1;
+    return result;
+}
+
+Matrix Matrix::rotate(int x_deg, int y_deg, int z_deg) {
+    Matrix result = Matrix::identity(4);
+
+    float x = x_deg * M_PI / 180;
+    float y = y_deg * M_PI / 180;
+    float z = z_deg * M_PI / 180;
+
+    result.data[0][0] = cos(z) * cos(y);
+    result.data[0][1] = cos(z) * sin(y) * sin(x) - sin(z) * cos(x);
+    result.data[0][2] = cos(z) * sin(y) * cos(x) + sin(z) * sin(x);
+    result.data[1][0] = sin(z) * cos(y);
+    result.data[1][1] = sin(z) * sin(y) * sin(x) + cos(z) * cos(x);
+    result.data[1][2] = sin(z) * sin(y) * cos(x) - cos(z) * sin(x);
+    result.data[2][0] = -sin(y);
+    result.data[2][1] = cos(y) * sin(x);
+    result.data[2][2] = cos(y) * cos(x);
+    
+    return result;
 }
 
 Matrix Matrix::identity(int n) {

@@ -4,6 +4,7 @@
 #include "large_int.h"
 #include "vector_kiloo.h"
 #include "matrix.h"
+#include "point.h"
 
 using namespace std;
 
@@ -55,6 +56,16 @@ int main() {
     cout << "Transpose of\n" << m1 << "=\n" << Matrix::transpose(m1) << endl;
     cout << "Inverse of\n" << m1 << "=\n" << Matrix::inverse(m1) << endl;
     cout << "Determinant of\n" << m1 << "=\n" << Matrix::determinant(m1) << endl;
+
+    Point p1(2, 3, 4, 1);
+    Matrix translation = Matrix::translate(5, -2, 3);
+    cout << "Translation of " << p1 << " by (5, -2, 3) = " << translation * p1 << endl;
+
+    Matrix rotation = Matrix::rotate(30, 45, 60);
+    cout << "Rotation of " << p1 << " by (30, 45, 60) = " << rotation * p1 << endl;
+
+    Matrix scaling = Matrix::scale(2, 3, 4);
+    cout << "Scaling of " << p1 << " by (2, 3, 4) = " << scaling * p1 << endl;
 
     return 0;
 }
