@@ -11,5 +11,6 @@ struct Point {
     Point();
     Point(int x, int y, int z, int w);
 
+    bool operator==(const Point& p) const;
     friend ostream& operator<<(ostream& o, const Point& p);
 };

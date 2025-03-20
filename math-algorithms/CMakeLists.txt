@@ -14,6 +14,7 @@ set(SOURCES
     src/vector_kiloo.cpp
     src/matrix.cpp
     src/point.cpp
+    src/convex_hull.cpp
 )
 
 add_executable(math_algorithms ${SOURCES})

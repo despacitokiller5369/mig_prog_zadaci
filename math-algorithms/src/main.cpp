@@ -5,6 +5,7 @@
 #include "vector_kiloo.h"
 #include "matrix.h"
 #include "point.h"
+#include "convex_hull.h"
 
 using namespace std;
 
@@ -66,6 +67,13 @@ int main() {
 
     Matrix scaling = Matrix::scale(2, 3, 4);
     cout << "Scaling of " << p1 << " by (2, 3, 4) = " << scaling * p1 << endl;
+
+    ConvexHull ch = ConvexHull::generate_points(10, -10, 10);
+    ch.simple_convex_hull();
+    cout << "Convex hull for points:\n";
+    ch.print_points();
+    cout << "is:\n" << ch << endl;
+    
 
     return 0;
 }
